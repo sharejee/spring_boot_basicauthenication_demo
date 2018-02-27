@@ -32,6 +32,16 @@ public class ReceiptCodeServiceImpl implements ReceiptCodeService{
                 receiptCode.setArea(area);
                 receiptCode.setCode("ReceiptCode - " + i);
                 receiptCode.setDes("ReceiptCode Des - " + i);
+                receiptCode.setQty(300D);
+                receiptCode.setPrice(300D);
+
+                double calculateAmount = getAmountCalculate(receiptCode);
+                double totalAmount =  getTotalAmount(calculateAmount);
+                double discount = getDiscount(receiptCode);
+
+                receiptCode.setAmount(totalAmount);
+                receiptCode.setDiscount(discount);
+
                 receiptCodeRepository.save(receiptCode);
             }
         }
@@ -45,6 +55,12 @@ public class ReceiptCodeServiceImpl implements ReceiptCodeService{
 
     @Override
     public void createReceiptCode(ReceiptCode receiptCode) {
+        double calculateAmount = getAmountCalculate(receiptCode);
+        double totalAmount =  getTotalAmount(calculateAmount);
+        double discount = getDiscount(receiptCode);
+
+        receiptCode.setAmount(totalAmount);
+        receiptCode.setDiscount(discount);
         receiptCodeRepository.save(receiptCode);
     }
 
@@ -75,5 +91,30 @@ public class ReceiptCodeServiceImpl implements ReceiptCodeService{
             }
             return area;
         }
+    }
+
+    private Double getAmountCalculate(ReceiptCode receiptCode){
+        Double qty = receiptCode.getQty();
+        Double price = receiptCode.getPrice();
+        Double amount = qty *price;
+        return amount;
+    }
+
+    private Double getTotalAmount(Double amount){
+        double discount = 0.5;
+        if (amount > 2000) {
+            amount = amount - (amount * discount);
+            return amount;
+        }
+        return amount;
+    }
+
+    private Double getDiscount(ReceiptCode receiptCode){
+        double amountCaculate = getAmountCalculate(receiptCode);
+        double discount = 0.0;
+        if (amountCaculate > 2000) {
+            discount = 0.5;
+        }
+        return discount;
     }
 }
