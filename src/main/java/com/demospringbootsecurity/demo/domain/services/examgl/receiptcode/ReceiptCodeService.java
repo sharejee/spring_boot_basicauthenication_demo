@@ -1,4 +1,4 @@
-package com.demospringbootsecurity.demo.domain.services.examgl;
+package com.demospringbootsecurity.demo.domain.services.examgl.receiptcode;
 
 import com.demospringbootsecurity.demo.domain.models.examgl.ReceiptCode;
 

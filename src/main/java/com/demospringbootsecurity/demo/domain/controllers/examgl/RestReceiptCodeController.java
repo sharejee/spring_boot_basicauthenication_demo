@@ -1,7 +1,7 @@
 package com.demospringbootsecurity.demo.domain.controllers.examgl;
 
 import com.demospringbootsecurity.demo.domain.models.examgl.ReceiptCode;
-import com.demospringbootsecurity.demo.domain.services.examgl.ReceiptCodeService;
+import com.demospringbootsecurity.demo.domain.services.examgl.receiptcode.ReceiptCodeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
